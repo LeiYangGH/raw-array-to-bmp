@@ -67,8 +67,14 @@ def show_img_array_tk(img_array):
     # array_with_header.extend(header_array)
     # array_with_header.extend(img_array)
     array = np.array(img_array).reshape(1052 * 3, 780)
-    img = ImageTk.PhotoImage(image=Image.fromarray(array, mode='RGB'))
-
+    img = ImageTk.PhotoImage(image=Image.fromarray(array, mode='RGB').resize((500, 500), Image.ANTIALIAS))
+    # img_bytes = bytes(img_array)
+    # # 如果直接用file.read()
+    # # 读出来的就是bytes，
+    # # 但由于你给我的是list of int
+    # # 就要转换一下
+    # red, green, blue = Image.frombytes('RGB', (1052, 780), img_bytes).split()
+    # img = Image.merge('RGB', (blue, green, red))
     canvas = tk.Canvas(root, width=800, height=800)
     canvas.pack()
     canvas.create_image(0, 0, anchor="nw", image=img)
