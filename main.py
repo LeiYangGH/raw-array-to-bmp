@@ -1,3 +1,6 @@
+import os
+
+
 def read_file(file):
     with open(file, 'r', encoding='utf8', errors='ignore') as f:
         return f.read()
@@ -19,6 +22,9 @@ def read_img_array(file_name):
             arr.append(int(x))
     return arr
 
+    # 这个头是我用画图工具创建了个1052, 780的bmp文件，
+    # 然后复制出来的头信息
+
 
 header_array = [0x42, 0x4D, 0x26, 0x90, 0x25, 0x00, 0x00, 0x00, 0x00, 0x00, 0x36, 0x00, 0x00, 0x00, 0x28, 0x00,
                 0x00,
@@ -31,9 +37,6 @@ header_array = [0x42, 0x4D, 0x26, 0x90, 0x25, 0x00, 0x00, 0x00, 0x00, 0x00, 0x36
 
 def raw_array_to_bmp_1(img_array, file_name):
     print(len(img_array))
-    # 这个头是我用画图工具创建了个1052, 780的bmp文件，
-    # 然后复制出来的头信息
-
     with  open(file_name, "wb") as fw:
         global header_array
         for h in header_array:
@@ -72,7 +75,10 @@ def show_img_array_tk(img_array):
 
 
 if __name__ == '__main__':
-    img_array = read_img_array(r'C:\Users\LeiYang\Downloads\data.txt')
+    # basepath = r'C:\Users\LeiYang\Downloads'
+    basepath = r'C:\Users\YANG.LEI\Downloads'
+    datapath = os.path.join(basepath, 'data.txt')
+    img_array = read_img_array(datapath)
     # raw_array_to_bmp_1(img_array, r'C:\Users\LeiYang\Downloads\addheader.bmp')
     # raw_array_to_bmp_2(img_array, r'C:\Users\LeiYang\Downloads\pilsave.bmp')
     show_img_array_tk(img_array)
