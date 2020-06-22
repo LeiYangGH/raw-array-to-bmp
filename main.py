@@ -1,5 +1,8 @@
 import os
 
+WIDTH = 1052
+HEIGHT = 780
+
 
 def read_file(file):
     with open(file, 'r', encoding='utf8', errors='ignore') as f:
@@ -53,9 +56,8 @@ def raw_array_to_bmp_2(img_array, file_name):
     # 读出来的就是bytes，
     # 但由于你给我的是list of int
     # 就要转换一下
-    red, green, blue = Image.frombytes('RGB', (1052, 780), img_bytes).split()
+    red, green, blue = Image.frombytes('RGB', (WIDTH, HEIGHT), img_bytes).split()
     image = Image.merge('RGB', (blue, green, red))
-    # image = image.transpose(Image.FLIP_TOP_BOTTOM)
     image.save(file_name)
     print(f'wrote to {file_name}')
 
@@ -65,10 +67,10 @@ def show_img_array_tk(img_array):
     from PIL import Image, ImageTk
     root = tk.Tk()
     img_bytes = bytes(img_array)
-    red, green, blue = Image.frombytes('RGB', (1052, 780), img_bytes).split()
+    red, green, blue = Image.frombytes('RGB', (WIDTH, HEIGHT), img_bytes).split()
     image = Image.merge('RGB', (blue, green, red))
     img = ImageTk.PhotoImage(image=image)
-    canvas = tk.Canvas(root, width=1052, height=780)
+    canvas = tk.Canvas(root, width=WIDTH, height=HEIGHT)
     canvas.pack()
     canvas.create_image(0, 0, anchor="nw", image=img)
     root.mainloop()
